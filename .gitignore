@@ -2,8 +2,6 @@
 lib/
 dist/
 temp/
-release/
-*.sppkg
 *.log
 
 # Node.js
@@ -91,12 +89,10 @@ jspm_packages/
 .tern-port
 
 # SharePoint specific
-*.sppkg
 *.log
 temp/
 lib/
 dist/
-release/
 
 # Excel files (if they contain sensitive data)
 *.xlsx
