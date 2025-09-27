@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "Bash(yo:*)",
+      "Bash(echo:*)",
+      "Bash(mkdir:*)",
+      "Read(//d/Users/juan.giraldo/Desktop/CodingCamp/**)",
+      "Bash(gulp build)",
+      "Bash(gulp serve:*)",
+      "Bash(gulp:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

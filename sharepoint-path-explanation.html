@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SharePoint Path Discovery - How Your App Finds Lists</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background: #d4edda; border-color: #c3e6cb; color: #155724; }
+        .info { background: #d1ecf1; border-color: #bee5eb; color: #0c5460; }
+        .warning { background: #fff3cd; border-color: #ffeaa7; color: #856404; }
+        .code { background: #f8f9fa; padding: 10px; border-radius: 3px; font-family: monospace; margin: 10px 0; }
+        .flow-step { padding: 10px; margin: 5px 0; border-left: 4px solid #007bff; background: #f8f9fa; }
+        .highlight { background: #ffeb3b; padding: 2px 4px; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        th, td { padding: 8px 12px; border: 1px solid #ddd; text-align: left; }
+        th { background: #f8f9fa; font-weight: bold; }
+        .path-diagram { background: #e9ecef; padding: 15px; border-radius: 5px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗺️ SharePoint Path Discovery - How Your App Finds Lists</h1>
+        <p>This explains exactly how your SPFx app automatically discovers and connects to SharePoint lists.</p>
+
+        <div class="section success">
+            <h3>✨ The Magic: Automatic Path Discovery</h3>
+            <p><strong>Your app AUTOMATICALLY knows the SharePoint site path!</strong></p>
+            <p>SPFx apps run within the SharePoint context and inherit the current site's URL and permissions.</p>
+        </div>
+
+        <div class="section info">
+            <h3>🔄 How Path Discovery Works</h3>
+
+            <div class="flow-step">
+                <strong>Step 1: SPFx Context Injection</strong><br/>
+                File: <code>DataLineageViewerWebPart.ts:34</code><br/>
+                <div class="code">context: this.context</div>
+                The web part passes SharePoint context containing current site info.
+            </div>
+
+            <div class="flow-step">
+                <strong>Step 2: PnPjs Initialization</strong><br/>
+                File: <code>SharePointService.ts:25</code><br/>
+                <div class="code">this.sp = spfi().using(SPFx(this.config.context));</div>
+                PnPjs automatically configures itself with the current site URL from context.
+            </div>
+
+            <div class="flow-step">
+                <strong>Step 3: List Discovery</strong><br/>
+                File: <code>SharePointService.ts:39</code><br/>
+                <div class="code">this.sp.web.lists.getByTitle(this.listName)</div>
+                Searches for list by name in the CURRENT SITE (where the app is running).
+            </div>
+        </div>
+
+        <div class="section info">
+            <h3>📍 What the Context Contains</h3>
+            <p>The SharePoint context automatically provides:</p>
+            <table>
+                <tr><th>Property</th><th>Contains</th><th>Example</th></tr>
+                <tr>
+                    <td>pageContext.web.absoluteUrl</td>
+                    <td>Current site URL</td>
+                    <td>https://yourtenant.sharepoint.com/sites/yoursite</td>
+                </tr>
+                <tr>
+                    <td>pageContext.web.title</td>
+                    <td>Site name</td>
+                    <td>Your Communication Site</td>
+                </tr>
+                <tr>
+                    <td>pageContext.user.loginName</td>
+                    <td>Current user</td>
+                    <td>i:0#.f|membership|user@tenant.com</td>
+                </tr>
+                <tr>
+                    <td>pageContext.list</td>
+                    <td>Current list (if on list page)</td>
+                    <td>List metadata</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section warning">
+            <h3>🎯 Deployment Scenario</h3>
+            <div class="path-diagram">
+Your Deployment Structure:
+<br/>
+📁 SharePoint Communication Site
+   ├── 📄 Pages
+   │   └── 📄 Data Lineage Page (your app goes here)
+   ├── 📋 Lists
+   │   └── 📋 DataLineage (your data list)
+   ├── 📚 Document Libraries
+   └── ⚙️ Apps
+       └── 🎯 Data Lineage Viewer (your .sppkg)
+            </div>
+        </div>
+
+        <div class="section info">
+            <h3>🔧 List Name Configuration</h3>
+            <p>Your app looks for the list name in this priority order:</p>
+
+            <div class="flow-step">
+                <strong>1. Web Part Property (Configurable)</strong><br/>
+                File: <code>DataLineageViewerWebPart.ts:35</code><br/>
+                <div class="code">sharePointListName: this.properties.sharePointListName</div>
+                Admin can configure custom list name in web part settings.
+            </div>
+
+            <div class="flow-step">
+                <strong>2. Default List Name</strong><br/>
+                File: <code>SharePointService.ts:19</code><br/>
+                <div class="code">this.listName = config.listName || 'DataLineage';</div>
+                Falls back to "DataLineage" if no custom name specified.
+            </div>
+        </div>
+
+        <div class="section success">
+            <h3>📋 Required SharePoint List Structure</h3>
+            <p>Your SharePoint admin needs to create a list with these columns:</p>
+
+            <table>
+                <tr><th>Column Name</th><th>Type</th><th>Required</th><th>Description</th></tr>
+                <tr><td>Title</td><td>Single line of text</td><td>✅</td><td>Default SharePoint column</td></tr>
+                <tr><td>UseCase</td><td>Single line of text</td><td>✅</td><td>Data lineage use case</td></tr>
+                <tr><td>DataSources</td><td>Single line of text</td><td>✅</td><td>Source systems</td></tr>
+                <tr><td>Ingestion</td><td>Single line of text</td><td>✅</td><td>Data ingestion method</td></tr>
+                <tr><td>Storage</td><td>Single line of text</td><td>✅</td><td>Storage location</td></tr>
+                <tr><td>ProcessingTransformation</td><td>Single line of text</td><td>✅</td><td>Processing tools</td></tr>
+                <tr><td>ConsumptionReporting</td><td>Single line of text</td><td>✅</td><td>Reporting tools</td></tr>
+                <tr><td>Linaje</td><td>Yes/No</td><td>✅</td><td>Include in visualization</td></tr>
+            </table>
+        </div>
+
+        <div class="section info">
+            <h3>🧪 Connection Test Logic</h3>
+            <p>Your app tests the connection like this:</p>
+
+            <div class="code">
+File: SharePointService.ts:70-82
+<br/><br/>
+public async testConnection(): Promise&lt;boolean&gt; {
+  try {
+    await this.sp.web.lists.getByTitle(this.listName)();
+    return true;  // ✅ List found
+  } catch (error) {
+    return false; // ❌ List not found, use mock data
+  }
+}
+            </div>
+        </div>
+
+        <div class="section warning">
+            <h3>🚀 Deployment Instructions for SharePoint Admin</h3>
+
+            <div class="flow-step">
+                <strong>Step 1: Create the List</strong><br/>
+                Navigate to: Site Contents → New → List<br/>
+                Name: "DataLineage" (or custom name)<br/>
+                Add the 7 custom columns listed above.
+            </div>
+
+            <div class="flow-step">
+                <strong>Step 2: Upload App Package</strong><br/>
+                Upload <code>data-lineage-spfx.sppkg</code> to App Catalog<br/>
+                Deploy to all sites or specific sites.
+            </div>
+
+            <div class="flow-step">
+                <strong>Step 3: Add Web Part to Page</strong><br/>
+                Edit any page → Add web part → Search "Data Lineage"<br/>
+                Configure web part properties if needed.
+            </div>
+
+            <div class="flow-step">
+                <strong>Step 4: Populate List Data</strong><br/>
+                Add records to the DataLineage list<br/>
+                Set Linaje=Yes for records to show in visualization.
+            </div>
+        </div>
+
+        <div class="section success">
+            <h3>✅ Why This Approach Works</h3>
+            <ul>
+                <li><strong>No hardcoded URLs:</strong> App adapts to any SharePoint site</li>
+                <li><strong>Security inheritance:</strong> Uses current user's permissions</li>
+                <li><strong>Tenant flexibility:</strong> Works across different tenants</li>
+                <li><strong>Fallback safety:</strong> Mock data if SharePoint unavailable</li>
+                <li><strong>Easy configuration:</strong> Admin can change list name in web part settings</li>
+            </ul>
+        </div>
+
+        <div class="section info">
+            <h3>🔍 Troubleshooting</h3>
+            <table>
+                <tr><th>Issue</th><th>Cause</th><th>Solution</th></tr>
+                <tr>
+                    <td>Shows mock data</td>
+                    <td>List not found</td>
+                    <td>Check list name and columns</td>
+                </tr>
+                <tr>
+                    <td>Permission errors</td>
+                    <td>User lacks access</td>
+                    <td>Grant read permissions to list</td>
+                </tr>
+                <tr>
+                    <td>Column not found</td>
+                    <td>Missing columns</td>
+                    <td>Add required columns to list</td>
+                </tr>
+                <tr>
+                    <td>Web part not found</td>
+                    <td>App not deployed</td>
+                    <td>Upload .sppkg to App Catalog</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section success">
+            <h3>🎯 Summary</h3>
+            <p><strong>Your app is smart!</strong> It automatically:</p>
+            <ul>
+                <li>Detects the current SharePoint site</li>
+                <li>Looks for the "DataLineage" list (or custom name)</li>
+                <li>Falls back to mock data if list doesn't exist</li>
+                <li>Works on any SharePoint site without configuration</li>
+            </ul>
+            <p><strong>The SharePoint admin just needs to:</strong></p>
+            <ol>
+                <li>Create the list with proper columns</li>
+                <li>Deploy your .sppkg file</li>
+                <li>Add the web part to a page</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

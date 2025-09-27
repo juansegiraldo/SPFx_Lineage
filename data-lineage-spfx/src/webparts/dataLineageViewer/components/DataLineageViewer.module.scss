@@ -1,0 +1,328 @@
+@import '~@fluentui/react/dist/sass/References.scss';
+
+// Definir variables de color personalizadas para compatibilidad
+$ms-color-redLight: #fde7e9;
+$ms-color-red: #d13438;
+$ms-color-redDark: #a4262c;
+$ms-color-green: #107c10;
+$ms-color-neutralDark: #201f1e;
+$ms-color-neutralDarker: #161514;
+
+.dataLineageViewer {
+  background-color: $ms-color-white;
+  min-height: 100vh;
+
+  .container {
+    max-width: 1200px;
+    margin: 0px auto;
+    padding: 20px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: $ms-color-white;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid $ms-color-themePrimary;
+    padding-bottom: 20px;
+
+    .title {
+      font-size: 32px;
+      font-weight: 600;
+      color: $ms-color-themePrimary;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: $ms-color-neutralSecondary;
+      font-style: italic;
+    }
+  }
+
+  .controlsSection {
+    background-color: $ms-color-neutralLighterAlt;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    border: 1px solid $ms-color-neutralLight;
+
+    .sectionTitle {
+      color: $ms-color-themePrimary;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+  }
+
+  .statsSection {
+    background-color: $ms-color-neutralLighterAlt;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    border: 1px solid $ms-color-neutralLight;
+
+    .statsGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .statCard {
+      background-color: $ms-color-white;
+      padding: 15px;
+      border-radius: 4px;
+      border: 1px solid $ms-color-neutralQuaternaryAlt;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+      .statValue {
+        font-size: 28px;
+        font-weight: 700;
+        color: $ms-color-themePrimary;
+        margin-bottom: 5px;
+      }
+
+      .statLabel {
+        font-size: 14px;
+        color: $ms-color-neutralSecondary;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .fileUploaderSection {
+    background-color: $ms-color-themeLight;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    border: 1px solid $ms-color-themeLighter;
+
+    .excelIcon {
+      font-size: 24px;
+      color: $ms-color-green;
+    }
+
+    .instructionText {
+      color: $ms-color-neutralSecondary;
+      line-height: 1.4;
+    }
+
+    .successIcon {
+      color: $ms-color-green;
+      font-size: 16px;
+    }
+  }
+
+  .graphContainer {
+    background-color: $ms-color-white;
+    border-radius: 6px;
+    border: 1px solid $ms-color-neutralLight;
+
+    .cytoscapeContainer {
+      width: 100%;
+      background-color: #fafafa;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .emptyGraphContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $ms-color-neutralLighterAlt;
+      border-radius: 4px;
+      border: 2px dashed $ms-color-neutralTertiaryAlt;
+
+      .emptyGraphText {
+        color: $ms-color-neutralSecondary;
+        font-weight: 600;
+      }
+
+      .emptyGraphSubtext {
+        color: $ms-color-neutralTertiary;
+        text-align: center;
+      }
+    }
+
+    .legendContainer {
+      background-color: $ms-color-neutralLighterAlt;
+      padding: 15px;
+      border-radius: 4px;
+      border: 1px solid $ms-color-neutralQuaternaryAlt;
+
+      .legendColor {
+        width: 16px;
+        height: 16px;
+        border-radius: 2px;
+        border: 1px solid $ms-color-neutralTertiaryAlt;
+      }
+    }
+  }
+
+  .filterSection {
+    .filterLabel {
+      color: $ms-color-neutralPrimary;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .dropdown {
+      min-width: 250px;
+    }
+  }
+
+  .loadingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-color: $ms-color-neutralLighterAlt;
+    border-radius: 6px;
+
+    .loadingText {
+      margin-top: 20px;
+      color: $ms-color-neutralSecondary;
+      font-weight: 500;
+    }
+  }
+
+  .errorContainer {
+    background-color: $ms-color-redLight;
+    border: 1px solid $ms-color-red;
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    .errorTitle {
+      color: $ms-color-redDark;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .errorMessage {
+      color: $ms-color-redDark;
+      line-height: 1.4;
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: 768px) {
+    .container {
+      padding: 15px;
+      margin: 10px;
+    }
+
+    .header .title {
+      font-size: 24px;
+    }
+
+    .statsGrid {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+    }
+
+    .controlsSection {
+      padding: 15px;
+    }
+
+    .graphContainer .cytoscapeContainer {
+      height: 400px !important;
+    }
+
+    .legendContainer {
+      .legendColor {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header .title {
+      font-size: 20px;
+    }
+
+    .statsGrid {
+      grid-template-columns: 1fr;
+    }
+
+    .statCard {
+      .statValue {
+        font-size: 24px;
+      }
+    }
+  }
+
+  // Dark theme support (optional)
+  @media (prefers-color-scheme: dark) {
+    .container {
+      background-color: $ms-color-neutralDark;
+      color: $ms-color-white;
+    }
+
+    .controlsSection,
+    .statsSection {
+      background-color: $ms-color-neutralDarker;
+    }
+
+    .statCard {
+      background-color: $ms-color-neutralDark;
+      border-color: $ms-color-neutralPrimary;
+    }
+
+    .graphContainer .cytoscapeContainer {
+      background-color: $ms-color-neutralDark;
+    }
+  }
+
+  // Print styles
+  @media print {
+    .controlsSection,
+    .fileUploaderSection {
+      display: none;
+    }
+
+    .container {
+      box-shadow: none;
+      max-width: 100%;
+    }
+
+    .graphContainer .cytoscapeContainer {
+      height: 500px !important;
+    }
+  }
+
+  // Animations
+  .fadeIn {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .slideIn {
+    animation: slideIn 0.4s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}

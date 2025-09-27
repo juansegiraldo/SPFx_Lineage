@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "data-lineage-spfx-client-side-solution",
+    "id": "a7e6bc1f-4e5d-4b1a-8c3f-2e9d1a8b7c6d",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "Data Lineage Team",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "0000000"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "Visualizador de Linaje de Datos"
+      },
+      "longDescription": {
+        "default": "Aplicación SPFx para visualizar el linaje de datos usando Cytoscape.js con capacidad de leer desde SharePoint o archivos Excel"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "Data Lineage Viewer Feature",
+        "description": "The feature that activates elements of the Data Lineage Viewer solution.",
+        "id": "b8c1e2d4-5f6a-4c7b-9e8d-1a2b3c4d5e6f",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/data-lineage-spfx.sppkg"
+  }
+}

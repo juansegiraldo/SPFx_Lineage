@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "data-lineage-viewer-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/dataLineageViewer/DataLineageViewerWebPart.js",
+          "manifest": "./src/webparts/dataLineageViewer/DataLineageViewerWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {
+    "cytoscape": {
+      "path": "https://unpkg.com/cytoscape@3.26.0/dist/cytoscape.min.js",
+      "globalName": "cytoscape"
+    },
+    "dagre": {
+      "path": "https://unpkg.com/dagre@0.8.5/dist/dagre.min.js",
+      "globalName": "dagre"
+    },
+    "cytoscape-dagre": {
+      "path": "https://unpkg.com/cytoscape-dagre@2.5.0/cytoscape-dagre.js",
+      "globalName": "cytoscapeDagre",
+      "globalDependencies": [
+        "cytoscape",
+        "dagre"
+      ]
+    }
+  },
+  "localizedResources": {
+    "DataLineageViewerWebPartStrings": "lib/webparts/dataLineageViewer/loc/{locale}.js"
+  }
+}
