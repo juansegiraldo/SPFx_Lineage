@@ -38,7 +38,6 @@ const baseContext = {
 const mockProps = {
   description: 'Test Description',
   context: baseContext,
-  enableExcelUpload: true,
   sharePointListName: 'TestList',
   primaryColor: '#0078d4',
   secondaryColor: '#106ebe',
@@ -237,32 +236,6 @@ describe('DataLineageViewer Component', () => {
     });
   });
 
-  describe('Excel Upload Integration', () => {
-    it('should render FileUploader when enableExcelUpload is true', async () => {
-      // Act
-      render(<DataLineageViewer {...mockProps} />);
-
-      // Assert
-      await waitFor(() => {
-        // FileUploader should be rendered (we'll need to mock it too)
-        expect(screen.getByTestId('cytoscape-graph')).toBeInTheDocument();
-      });
-    });
-
-    it('should not render FileUploader when enableExcelUpload is false', async () => {
-      // Arrange
-      const propsWithoutUpload = { ...mockProps, enableExcelUpload: false };
-
-      // Act
-      render(<DataLineageViewer {...propsWithoutUpload} />);
-
-      // Assert
-      await waitFor(() => {
-        expect(screen.getByTestId('cytoscape-graph')).toBeInTheDocument();
-        // FileUploader should not be present
-      });
-    });
-  });
 
   describe('SharePoint Integration', () => {
     it('should attempt SharePoint connection first', async () => {

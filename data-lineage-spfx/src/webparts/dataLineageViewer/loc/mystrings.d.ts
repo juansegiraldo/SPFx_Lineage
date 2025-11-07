@@ -3,7 +3,6 @@ declare interface IDataLineageViewerWebPartStrings {
   DataGroupName: string;
   AppearanceGroupName: string;
   SharePointListNameFieldLabel: string;
-  EnableExcelUploadFieldLabel: string;
   PrimaryColorFieldLabel: string;
   SecondaryColorFieldLabel: string;
   DescriptionFieldLabel: string;

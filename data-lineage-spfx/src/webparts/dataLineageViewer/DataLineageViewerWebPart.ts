@@ -16,7 +16,6 @@ import { IDataLineageViewerProps } from './components/IDataLineageViewerProps';
 export interface IDataLineageViewerWebPartProps {
   description: string;
   sharePointListName: string;
-  enableExcelUpload: boolean;
   primaryColor: string;
   secondaryColor: string;
 }
@@ -33,7 +32,6 @@ export default class DataLineageViewerWebPart extends BaseClientSideWebPart<IDat
         description: this.properties.description,
         context: this.context,
         sharePointListName: this.properties.sharePointListName,
-        enableExcelUpload: this.properties.enableExcelUpload,
         primaryColor: this.properties.primaryColor,
         secondaryColor: this.properties.secondaryColor,
         isDarkTheme: this._isDarkTheme,
@@ -124,11 +122,6 @@ export default class DataLineageViewerWebPart extends BaseClientSideWebPart<IDat
                 PropertyPaneTextField('sharePointListName', {
                   label: strings.SharePointListNameFieldLabel,
                   description: 'Nombre de la lista de SharePoint que contiene los datos del linaje. Por defecto: DataLineage'
-                }),
-                PropertyPaneToggle('enableExcelUpload', {
-                  label: strings.EnableExcelUploadFieldLabel,
-                  onText: 'Habilitado',
-                  offText: 'Deshabilitado'
                 })
               ]
             },
@@ -153,7 +146,6 @@ export default class DataLineageViewerWebPart extends BaseClientSideWebPart<IDat
 
   protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
     if (propertyPath === 'sharePointListName' ||
-        propertyPath === 'enableExcelUpload' ||
         propertyPath === 'primaryColor' ||
         propertyPath === 'secondaryColor') {
       this.render();
