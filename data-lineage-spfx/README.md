@@ -1,11 +1,11 @@
 # Visualizador de Linaje de Datos - SPFx
 
-Una aplicación SharePoint Framework (SPFx) que permite visualizar el linaje de datos usando Cytoscape.js con capacidad de leer datos desde listas de SharePoint o archivos Excel.
+Una aplicación SharePoint Framework (SPFx) que permite visualizar el linaje de datos usando Cytoscape.js con datos desde listas de SharePoint.
 
 ## Características Principales
 
 - **Visualización interactiva** del linaje de datos con Cytoscape.js
-- **Dual source**: Compatible con datos de SharePoint Online y archivos Excel
+- **Integración con SharePoint**: Lee datos desde listas de SharePoint Online
 - **Filtrado dinámico** por casos de uso
 - **Diseño responsive** que funciona en desktop y móvil
 - **Estadísticas en tiempo real** del linaje de datos
@@ -31,7 +31,6 @@ src/
         ├── components/
         │   ├── DataLineageViewer.tsx          # Componente principal
         │   ├── CytoscapeGraph.tsx             # Visualización con Cytoscape
-        │   ├── FileUploader.tsx               # Carga de archivos Excel
         │   ├── DataLineageViewer.module.scss  # Estilos
         │   └── IDataLineageViewerProps.ts     # Props del componente
         ├── services/
@@ -82,14 +81,6 @@ Cree una lista llamada "DataLineage" con las siguientes columnas:
 | Consumption/Reporting | Texto | Sí | Sistemas de consumo |
 | Linaje | Sí/No | Sí | Indica si debe mostrarse en el linaje |
 
-### 3. Estructura del Archivo Excel
-
-Si utiliza carga de archivos Excel, el formato debe ser:
-
-| Use Case | Data Sources | Ingestion | Storage | Processing/Transformation | Consumption/Reporting | Linaje |
-|----------|--------------|-----------|---------|---------------------------|-----------------------|--------|
-| Análisis de Ventas | SAP | Azure Data Factory | Azure SQL | Databricks | Power BI | Sí |
-
 ## Comandos de Desarrollo
 
 ### Compilar el proyecto
@@ -121,7 +112,6 @@ Una vez desplegado en SharePoint, puede configurar el WebPart a través del Prop
 
 ### Configuración de Datos
 - **Nombre de Lista SharePoint**: Nombre de la lista (por defecto: "DataLineage")
-- **Habilitar carga Excel**: Permite cargar archivos Excel como fuente alternativa
 
 ### Configuración de Apariencia
 - **Color Primario**: Color principal de la interfaz
@@ -134,12 +124,7 @@ Una vez desplegado en SharePoint, puede configurar el WebPart a través del Prop
 - Use el dropdown "Caso de Uso" para filtrar por casos específicos
 - Interactúe con el gráfico usando zoom, pan y selección de nodos
 
-### 2. Carga de Datos Excel
-- Si está habilitada, use el botón "Seleccionar archivo Excel"
-- El archivo debe seguir la estructura de columnas especificada
-- Los datos de Excel reemplazan temporalmente los datos de SharePoint
-
-### 3. Funciones Interactivas
+### 2. Funciones Interactivas
 - **Zoom**: Use la rueda del mouse para hacer zoom
 - **Pan**: Arrastre para mover la vista
 - **Centrar vista**: Botón para centrar automáticamente el gráfico
@@ -176,9 +161,9 @@ La aplicación incluye datos de ejemplo para desarrollo:
 - Revise los permisos de acceso a la lista
 
 ### Error: "No se encontraron datos para procesar"
-- Verifique que el archivo Excel tenga el formato correcto
+- Verifique que la lista de SharePoint tenga datos
 - Asegúrese de que al menos un registro tenga Linaje = "Sí"
-- Confirme que existe al menos una fila de datos (además del header)
+- Confirme que la lista tiene las columnas correctas
 
 ### Problemas de Compilación con Node.js
 - La aplicación fue desarrollada para Node.js 18.x pero es compatible con versiones más recientes
@@ -227,7 +212,7 @@ gulp package-solution --ship
 ### 3. Configuración Post-Despliegue
 - Configure el Property Pane con el nombre correcto de la lista
 - Verifique que los usuarios tengan permisos de lectura a la lista
-- Pruebe la funcionalidad de carga Excel si está habilitada
+- Pruebe la visualización del linaje de datos
 
 ## Licencia
 

@@ -14,12 +14,11 @@
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
     "group": { "default": "Advanced" },
     "title": { "default": "Visualizador de Linaje de Datos" },
-    "description": { "default": "Visualiza el linaje de datos usando Cytoscape.js con capacidad de leer desde SharePoint o archivos Excel" },
+    "description": { "default": "Visualiza el linaje de datos usando Cytoscape.js con datos desde SharePoint" },
     "officeFabricIconFontName": "Org",
     "properties": {
       "description": "Visualizador de Linaje de Datos",
       "sharePointListName": "DataLineage",
-      "enableExcelUpload": true,
       "primaryColor": "#0078d4",
       "secondaryColor": "#106ebe"
     }

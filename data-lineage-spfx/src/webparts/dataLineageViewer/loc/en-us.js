@@ -4,7 +4,6 @@ define([], function() {
     "DataGroupName": "Configuración de Datos",
     "AppearanceGroupName": "Apariencia",
     "SharePointListNameFieldLabel": "Nombre de la Lista de SharePoint",
-    "EnableExcelUploadFieldLabel": "Habilitar carga de archivos Excel",
     "PrimaryColorFieldLabel": "Color Primario",
     "SecondaryColorFieldLabel": "Color Secundario",
     "DescriptionFieldLabel": "Descripción del Web Part",

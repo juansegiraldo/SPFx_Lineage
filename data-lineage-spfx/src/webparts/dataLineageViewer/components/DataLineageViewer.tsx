@@ -23,7 +23,6 @@ import { MockDataService } from '../services/MockDataService';
 import { SharePointService, ISharePointServiceConfig } from '../services/SharePointService';
 import { DataProcessingService } from '../services/DataProcessingService';
 import { CytoscapeGraph } from './CytoscapeGraph';
-import { FileUploader } from './FileUploader';
 import styles from './DataLineageViewer.module.scss';
 
 export interface IDataLineageViewerState {
@@ -147,30 +146,6 @@ export const DataLineageViewer: React.FC<IDataLineageViewerProps> = (props) => {
     }
   }, []);
 
-  // Manejar datos cargados desde Excel
-  const handleExcelDataLoaded = useCallback((data: IDataLineageRecord[]) => {
-    if (data.length === 0) {
-      // Volver a datos originales
-      const originalData = state.isSharePointMode ? [] : MockDataService.getMockData();
-      const originalUseCases = state.isSharePointMode ? ['Todos'] : MockDataService.getUseCases();
-
-      setState(prev => ({
-        ...prev,
-        data: originalData,
-        useCases: originalUseCases,
-        selectedUseCase: 'Todos'
-      }));
-    } else {
-      // Usar datos de Excel
-      const excelUseCases = DataProcessingService.getUseCases(data);
-      setState(prev => ({
-        ...prev,
-        data: data,
-        useCases: excelUseCases,
-        selectedUseCase: 'Todos'
-      }));
-    }
-  }, [state.isSharePointMode]);
 
   // Refrescar datos de SharePoint
   const handleRefreshData = useCallback(async () => {
@@ -284,15 +259,6 @@ export const DataLineageViewer: React.FC<IDataLineageViewerProps> = (props) => {
             )}
           </Stack>
         </div>
-
-        {/* File Uploader */}
-        {props.enableExcelUpload && (
-          <FileUploader
-            onDataLoaded={handleExcelDataLoaded}
-            isVisible={!state.sharePointConnected || props.enableExcelUpload}
-            disabled={state.isLoading}
-          />
-        )}
 
         {/* Statistics Section */}
         <div className={styles.statsSection}>

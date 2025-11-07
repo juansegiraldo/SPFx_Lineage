@@ -24,8 +24,7 @@
     "@pnp/sp": "^3.19.0",
     "cytoscape": "^3.26.0",
     "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+    "react-dom": "17.0.1"
   },
   "devDependencies": {
     "@microsoft/rush-stack-compiler-4.7": "0.1.0",
