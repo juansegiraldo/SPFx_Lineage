@@ -1,0 +1,42 @@
+name: Fortify AST Scan
+# Customize trigger events based on your DevSecOps process and/or policy
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  Fortify-AST-Scan:
+    # Use the appropriate runner for building your source code. Ensure dev tools required to build your code are present and configured appropriately (MSBuild, Python, etc).
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+      # pull-requests: write
+    steps :
+      - name: Check out source code
+        uses: actions/checkout@v4
+      - name: Set FOD RELEASE
+        run: echo "FOD_RELEASE=Training Apps:SPFx Lineage" >> $GITHUB_ENV
+      - name: Setup Fortify tools
+        uses: fortify/github-action/setup@v2
+        with:
+          tool-definitions: https://github.com/fortify/tool-definitions/releases/download/v1/tool-definitions.yaml.zip
+          sc-client: 25.2.0
+          debricked-cli: latest
+      - name: Run Fortify on Demand SAST & SCA Scan
+        uses: fortify/github-action@v2
+        with:
+          sast-scan: true    
+          debricked-sca-scan: true
+        env:
+          FOD_URL: https://emea.fortify.com
+          FOD_TENANT: ${{secrets.FOD_TENANT}}
+          FOD_USER: ${{secrets.FOD_USER}}
+          FOD_PASSWORD: ${{secrets.FOD_PASSWORD}}
+          FOD_RELEASE: ${{env.FOD_RELEASE}}
+          DO_WAIT: true
+          DO_POLICY_CHECK: true
