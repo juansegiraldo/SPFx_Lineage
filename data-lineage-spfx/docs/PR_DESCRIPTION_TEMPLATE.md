@@ -95,3 +95,4 @@ Algunas vulnerabilidades están anidadas en `@microsoft/sp-build-web@1.21.1` y n
 **Relacionado con**: Fortify Security Scan - 36 vulnerabilidades identificadas  
 **Fecha**: 2025-10-24  
 **Branch**: `security/fortify-fixes`
+
