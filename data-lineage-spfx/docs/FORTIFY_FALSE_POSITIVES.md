@@ -67,3 +67,4 @@ Si en el futuro se identifican nuevos falsos positivos, deben documentarse en es
 - Descripción del problema
 - Análisis y verificación realizada
 - Conclusión y acciones tomadas
+

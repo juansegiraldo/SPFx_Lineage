@@ -306,3 +306,4 @@ npm list body-parser
 - **No resolubles (build toolchain)**: 2 (postcss y algunas otras del build toolchain)
 
 Todas las vulnerabilidades que pueden ser resueltas sin romper la compatibilidad con SPFx han sido corregidas mediante overrides en `package.json`.
+
