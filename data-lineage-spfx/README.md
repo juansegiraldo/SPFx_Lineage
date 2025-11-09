@@ -81,24 +81,52 @@ Cree una lista llamada "DataLineage" con las siguientes columnas:
 | Consumption/Reporting | Texto | Sí | Sistemas de consumo |
 | Linaje | Sí/No | Sí | Indica si debe mostrarse en el linaje |
 
+## Testing Local (Sin SharePoint ni Aprobaciones!)
+
+**Puedes probar cambios de UI inmediatamente sin involucrar al equipo de ciberseguridad o administradores de SharePoint!**
+
+```bash
+npm run serve
+```
+
+Luego abre: `http://localhost:5432/workbench`
+
+La aplicación automáticamente usa datos de prueba (mock data) - perfecto para desarrollo! ✅
+
+**📖 Lee la guía completa de testing:** [TESTING.md](./TESTING.md)
+
+La guía incluye:
+- Cómo probar cambios de UI localmente (sin SharePoint)
+- Cómo funciona el sistema de mock data
+- Diferentes escenarios de prueba
+- Cuándo necesitas aprobaciones vs cuándo no
+- Resolución de problemas comunes
+
 ## Comandos de Desarrollo
+
+### Testing y Desarrollo Local (MÁS COMÚN)
+```bash
+# Iniciar servidor local con mock data
+npm run serve
+
+# Ejecutar tests unitarios
+npm test
+
+# Ejecutar tests en modo watch
+npm test -- --watch
+```
 
 ### Compilar el proyecto
 ```bash
-gulp build
-```
-
-### Ejecutar en modo desarrollo local
-```bash
-# Usar serve-deprecated si serve no funciona
-gulp serve-deprecated --nobrowser
-
-# O alternativamente
 npm run build
+# O alternativamente:
+gulp build
 ```
 
 ### Empaquetar para producción
 ```bash
+npm run package-solution
+# O manualmente:
 gulp clean
 gulp bundle --ship
 gulp package-solution --ship
