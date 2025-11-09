@@ -267,12 +267,27 @@ npm install
 npm run serve
 ```
 
+### Issue: "Task never defined: serve"
+
+**Error:**
+```
+[18:38:47] Task never defined: serve
+```
+
+**Solution:**
+This is already fixed in package.json. The script now uses `gulp serve-deprecated` instead of `gulp serve`. If you still see this error, make sure you have the latest package.json.
+
 ### Issue: Port already in use
 
 **Solution:**
 ```bash
 # Kill the process on port 4321
 lsof -ti:4321 | xargs kill -9
+
+# Windows:
+# Use Task Manager or:
+netstat -ano | findstr :4321
+taskkill /PID <PID> /F
 
 # Or change port in config/serve.json
 ```

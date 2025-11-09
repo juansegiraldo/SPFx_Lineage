@@ -10,7 +10,7 @@
     "build": "gulp bundle",
     "clean": "gulp clean",
     "test": "gulp test",
-    "serve": "gulp bundle --ship=false && gulp serve --nobrowser",
+    "serve": "gulp serve-deprecated --nobrowser",
     "package-solution": "gulp clean && gulp bundle --ship && gulp package-solution --ship",
     "deploy-azure-storage": "gulp deploy-azure-storage"
   },

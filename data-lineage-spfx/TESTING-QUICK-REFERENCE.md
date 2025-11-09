@@ -250,10 +250,21 @@ npm run serve
 - Clear cache
 - Restart dev server
 
+**"Task never defined: serve" error?**
+- This is fixed in the latest package.json
+- The script now uses `gulp serve-deprecated`
+- Pull latest changes or update package.json
+
 **Port in use?**
 ```bash
-# Kill process on port 4321
+# Linux/Mac:
 lsof -ti:4321 | xargs kill -9
+
+# Windows:
+netstat -ano | findstr :4321
+taskkill /PID <PID> /F
+
+# Then restart:
 npm run serve
 ```
 
